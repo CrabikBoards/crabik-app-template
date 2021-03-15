@@ -1,0 +1,35 @@
+// Файл с настройками запуска программы
+
+{
+    "version": "0.2.0",
+    "configurations": [{
+        "cwd": "${workspaceRoot}",
+        // Впишите вместо слова ПРОГРАММА название свомпилированого файла
+        "executable": "./target/thumbv7em-none-eabi/debug/ПРОГРАММА",
+        "name": "Отладка программы (OpenOCD)",
+        "request": "launch",
+        "preLaunchTask": "rust: cargo build",
+        "type": "cortex-debug",
+        "runToMain": true,
+        "svdFile": "./.svd/nrf52810.svd",
+        "configFiles": [
+            "interface/cmsis-dap.cfg",
+        ],
+        "servertype": "openocd",
+        "openOCDLaunchCommands": [
+            "cmsis_dap_vid_pid 0x1209 0xc55d",
+            "transport select swd",
+            "source [find target/nrf52.cfg]"
+        ],
+        // commands only supported in OpenOCD 0.11.0; also due to how the `rtt-target` crate works
+        // these commands need to run _after_ the target executes the `rtt_init` macro so running
+        // these commands when the device is halted on `main` will fail
+        // "postLaunchCommands": [
+        //   // FIXME(?) to work with a newer version (>0.3.7) of the cortex-debug extension the
+        //   // escaped backslashes (`\\`) may need to be removed
+        //   "monitor rtt setup 0x20000000 262144 \\\"SEGGER RTT\\\"",
+        //   "monitor rtt start",
+        //   "monitor rtt server start 8765 0",
+        // ],
+    }]
+}

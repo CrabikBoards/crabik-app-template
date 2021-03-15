@@ -1,0 +1,7 @@
+[placeholders.rtic_enabled]
+type = "bool"
+prompt = "Создать с использованием библеотеки RTIC?"
+default = false
+
+[template]
+exclude = ["README.md", "LICENSE-MIT"]

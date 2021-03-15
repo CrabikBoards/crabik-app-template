@@ -1,0 +1,48 @@
+# Файл с конфигурацией проекта
+
+[package]
+name = "{{project-name}}" # название пакета (проекта)
+edition = "2018" # издание (по умолчанию)
+version = "0.1.0" # версия (по умолчанию)
+
+[dependencies]
+cortex-m = "0.7.1" # предоставляет различные функции для работы с Cortex-M ядром
+cortex-m-rt = "0.6.13" # макросы предоставляющие "точку старта", назначение прерываний и т.д. для Cortex-M ядра
+{% if rtic_enabled %}
+cortex-m-rtic = "0.5.6" # предоставляет много функционала для работы с многозадачнойстью
+{% endif %}
+rtt-target = { version = "0.3.0", features = ["cortex-m"] }
+log = "0.4.8"
+crabik-board = "0.1.0" # предоставляет различные функции и hal для платы crabik
+
+# Настройка профиля компиляции для обычной сборки (отладки)
+[profile.dev]
+codegen-units = 1       # кол-во потоков при компиляции, меньше - ниже скорость компиляции, но лучше общая оптимизация, больше - выше скорость компиляции, но хуже общая оптимизация
+debug = 2               # отладочная информация
+debug-assertions = true # отладочная информация
+incremental = false
+opt-level = 2           # уровень оптимизации (оптимальный)
+overflow-checks = true  # проверка на переполнения в программе
+
+# Настройка профиля компиляции для итоговой сборки (релиз)
+[profile.release]
+codegen-units = 1
+debug = 2
+debug-assertions = false
+incremental = false
+lto = 'fat'
+opt-level = 's'
+overflow-checks = false
+
+# Меньше оптимизаций процедурных макросов - быстрее компиляция
+[profile.dev.build-override]
+codegen-units = 8
+debug = false
+debug-assertions = false
+opt-level = 0
+
+[profile.release.build-override]
+codegen-units = 8
+debug = false
+debug-assertions = false
+opt-level = 0

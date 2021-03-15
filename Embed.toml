@@ -1,0 +1,18 @@
+# Файл конфигурации для Cargo Embed
+
+[default.probe]
+usb_vid = "1209"
+usb_pid = "c55d"
+protocol = "Swd"
+
+[default.flashing]
+enabled = true
+
+[default.rtt]
+enabled = true
+
+[default.general]
+chip = "nRF52810_xxAA"
+
+[default.gdb]
+enabled = false

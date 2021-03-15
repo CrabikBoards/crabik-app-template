@@ -1,0 +1,16 @@
+# Файл с настройками Cargo для текущего проекта
+
+# Настройка параметров запуска и параметров компоновщика
+[target.'cfg(all(target_arch = "arm", target_os = "none"))']
+runner = "probe-run --chip nRF52810_xxAA" # установка программы, для "запуска" написанной вами программы
+rustflags = [ # параметры для компилятора rustc
+  "-C", "link-arg=-Tlink.x",
+  # This is needed if your flash or ram addresses are not aligned to 0x10000 in memory.x
+  # See https://github.com/rust-embedded/cortex-m-quickstart/pull/95
+  "-C", "link-arg=--nmagic", # выравнивание памяти, если его нет
+]
+
+# Настройка архитектуры для которой компилируем программу
+[build]
+target = "thumbv7em-none-eabi" # это таргет llvm для ядра Cortex-M4 (без FPU)
+
