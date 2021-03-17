@@ -8,7 +8,7 @@
         "executable": "./target/thumbv7em-none-eabi/debug/ПРОГРАММА",
         "name": "Отладка программы (OpenOCD)",
         "request": "launch",
-        "preLaunchTask": "rust: cargo build",
+        "preLaunchTask": "rust: cargo build release",
         "type": "cortex-debug",
         "runToMain": true,
         "svdFile": "./.svd/nrf52810.svd",
