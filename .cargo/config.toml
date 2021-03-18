@@ -2,8 +2,10 @@
 
 # Настройка параметров запуска и параметров компоновщика
 [target.'cfg(all(target_arch = "arm", target_os = "none"))']
-runner = "probe-run --chip nRF52810_xxAA" # установка программы, для "запуска" написанной вами программы
-rustflags = [ # параметры для компилятора rustc
+# Установка программы, для "запуска" написанной вами программы
+runner = "probe-run --chip nRF52810_xxAA"
+# Параметры для компилятора rustc
+rustflags = [
   "-C", "link-arg=-Tlink.x",
   # This is needed if your flash or ram addresses are not aligned to 0x10000 in memory.x
   # See https://github.com/rust-embedded/cortex-m-quickstart/pull/95
@@ -12,5 +14,6 @@ rustflags = [ # параметры для компилятора rustc
 
 # Настройка архитектуры для которой компилируем программу
 [build]
-target = "thumbv7em-none-eabi" # это таргет llvm для ядра Cortex-M4 (без FPU)
+# Это таргет llvm для ядра Cortex-M4 (без FPU)
+target = "thumbv7em-none-eabi"
 
