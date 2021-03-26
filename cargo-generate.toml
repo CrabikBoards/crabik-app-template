@@ -4,4 +4,4 @@ prompt = "Создать с использованием библеотеки RT
 default = false
 
 [template]
-exclude = ["README.md", "LICENSE-MIT"]
+exclude = ["README.md", "LICENSE"]
